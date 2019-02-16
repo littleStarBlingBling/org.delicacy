@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <div th:include="fragment/articleHead::div"/>
+    <title>编辑文章</title>
+    <!--markdown 的css-->
+    <link th:href="@{/css/thinker-md.vendor.css}" rel="stylesheet"/>
+    <link th:href="@{/css/toastr.css}" rel="stylesheet"/>
+    <link th:href="@{/css/article_edit.css}" rel="stylesheet"/>
+    <link th:href="@{/css/jquery.tagsinput.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/component-chosen.css}" rel="stylesheet"/>
+    <link th:href="@{/css/component-tageditor.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div th:include="fragment/banner::div"/>
+<!--content-->
+<div class="container article_container">
+    <div class="row">
+        <!--左侧-->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-block" th:object="${articleModel.article}">
+                    <span class="details_title">标题</span>
+                    <input type="hidden" name="id" th:value="*{id}" id="articleId"/>
+                    <input type="text" class="form-control" required="required" placeholder="记得在'历史分享与分类管理'里提前新建分类哦!"
+                           id="title" name="title" th:value="*{title}" maxlength="50"/>
+                    <div class="details_all">
+                        <p class="details_title">更多细节</p>
+                        <div class="canteen">
+                            <input type="radio" name="canteen" value="柳园"/>&nbsp;柳园
+                            <input type="radio" name="canteen" value="荷园"/>&nbsp;荷园
+                            <input type="radio" name="canteen" value="菊园"/>&nbsp;菊园
+                            <input type="radio" name="canteen" value="松园"/>&nbsp;松园
+                        </div>
+                        <input type="text" name="address" id="address" placeholder="请填写美食具体地址"
+                               class="details_item form-control" required="required" th:value="*{address}"/>
+                        <input type="text" name="price" id="price" placeholder="请填写美食的价格"
+                               class="details_item form-control" required="required" th:value="*{price}"/>
+                        <input type="text" name="food" id="food" placeholder="请填写美食配菜与主食，比如：主食是烩面，配菜有千张、海带、香菜"
+                               class="details_item form-control" required="required" th:value="*{food}"/>
+                    </div>
+                    <div class="summary">
+                        <span class="details_title">简要描述</span>
+                        <textarea class="article_textarea" placeholder="请简要描述下美食，比如最近有折扣，味道特别辣，食堂大叔人特别好给加好多肉"
+                                  id="summary" name="summary" th:text="*{summary}" maxlength="100"
+                                  required="required"></textarea>
+                    </div>
+                    <span class="details_title">更多想法</span>
+                    <textarea class="summary_textarea" id="md" data-provide="markdown" data-hidden-buttons="content"
+                              required="required"
+                              th:text="*{content}"></textarea>
+                </div>
+            </div>
+        </div>
+        <!--右侧-->
+        <div class="col-md-4">
+            <!--图片上传功能-->
+            <div class="card">
+                <h5 class="card-header">
+                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                    图片上传
+                </h5>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form enctype="multipart/form-data" id="uploadformid">
+                                <input type="file" name="file" accept="image/png,image/jpg,image/jpeg" id="file"
+                                       class="insert_btn"/>
+                                <button class="btn insert_img" type="button" id="uploadImage">插入图片</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--图片上传功能-->
+            <!--分类与标签-->
+            <div class="card_category set_category">
+                <h5 class="card-header">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    文章设置
+                </h5>
+                <div class="card-block">
+                    <div class="row set_row">
+                        <div class="col-lg-12">
+                            <span class="set_label"> 标签：</span>
+                            <input type="text" class="form-control form-control-tag" id="tags"
+                                   th:value="${articleModel.article.tags}"/>
+                        </div>
+                    </div>
+                    <div class="row set_row">
+                        <div class="col-lg-12">
+                            <span class="set_label"> 分类：</span>
+                            <select id="catalogSelect" class="form-control form-control-chosen" data-placeholder="请选择">
+                                <option th:value="*{id}" th:text="*{name}" th:each="catalog : ${articleModel.catalogs}"
+                                        th:object="${catalog}"
+                                        th:selected="${catalog  eq articleModel.article.catalog }">饺子
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button class="btn insert_img" id="submitArticle"
+                                    th:attr="username=${#authentication.name}">发布
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--分类与标签-->
+        </div>
+    </div>
+</div>
+<!--content-->
+
+<div th:include="fragment/foot::div"/>
+<!--本页自定义js-->
+<script th:inline="javascript">
+    var fileServerUrl = [[${articleModel.fileServerUrl}]];
+</script>
+<script th:src="@{/js/article_edit.js}" type="application/javascript"></script>
+<script th:src="@{/js/thinker-md.vendor.js}" type="application/javascript"></script>
+<script th:src="@{/js/jquery.tagsinput.min.js}" type="application/javascript"></script>
+<script  th:src="@{/js/chosen.jquery.js}"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <div th:include="fragment/articleHead::div"/>
+    <title>文章主页</title>
+    <!--本页的自定义css-->
+    <link th:href="@{/css/article.css}" rel="stylesheet">
+</head>
+<body>
+<div th:include="fragment/banner::div"/>
+<!--content-->
+<div class="container article-content-container">
+    <div class="row_main">
+        <div class="col-md-9 card_col">
+            <div class="card">
+                <div class="card-block">
+                    <h2 class="card-title">
+                        <span>
+                            <a th:href="'/u/'+${articleModel.user.username}" href="/u/hyz" title="hyz"
+                               th:title="${articleModel.user.username}">
+                                <img src="../../images/avatar02.jpg"
+                                     th:src="${articleModel.user.avatar}==null ? '/images/avatar.jpg':${articleModel.user.avatar}"
+                                     class="article-avatar-50"/>
+                            </a>
+                        </span>
+                        <a href="/u/hyz/articles/1" class="card-link" title="hyz"
+                           th:href="'/u/'+${articleModel.user.username}+'/articles/'+${articleModel.id}"
+                           th:title="${articleModel.user.username}" th:text="${articleModel.title}">荷园一二楼最南边的麻辣香锅</a>
+                    </h2>
+                    <div class="card-text">
+                        <a href="/u/hyz" th:href="'/u/' +${articleModel.user.username} " class="card-link"
+                           th:text="${articleModel.user.username}">
+                            <span class="word">hyz</span>
+                        </a>
+                        <span class="word_2"> 发表于 [[${#dates.format(articleModel.createTime, 'yyyy-MM-dd HH:mm')}]] </span>
+                        <i class="fa fa-eye" aria-hidden="true">[[${articleModel.readSize}]]</i>
+                        <i class="fa fa-heart-o" aria-hidden="true">[[${articleModel.praiseSize}]]</i>
+                        <i class="fa fa-comment-o" aria-hidden="true">[[${articleModel.commentSize}]]</i>
+                        <div>
+                            <a href="/u/hyz" th:if="${isArticleOwner}"
+                               th:href="'/u/'+${articleModel.user.username}+'/articles/edit/'+${articleModel.id}"
+                               class="btn btn_edit">编辑</a>
+                            <a href="javascript:void(0)" th:if="${isArticleOwner}"
+                               class="btn btn_edit article-delete">删除</a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="content_info">
+                        <p class="canteen details_info" th:text="'食堂：'+${articleModel.canteen}">食堂：松园</p>
+                        <p class="address details_info" th:text="'具体窗口：'+${articleModel.address}">地址：松园二楼最北边那个窗口</p>
+                        <p class="price details_info" th:text="'价格：'+${articleModel.price}">价格：6.5</p>
+                        <p class="describe details_info" th:text="'配菜：'+${articleModel.food}">配菜：有生菜，千张，海带之类的配菜</p>
+                    </div>
+                    <article class="post-content" th:utext="${articleModel.htmlContent}">
+                        <img src="../../images/example.jpeg" style="width: 100%"/>
+                        <p>写的很好哦！
+                            声临其境收官了，但这不是真的结束。今天，我的第一个音频节目将在蜻蜓FM上线，
+                            和大家继续唠唠，希望在未来的一段时间，我的声音能继续温暖大家伙儿的心窝！
+                            你们想听我说些什么呢？</p>
+                    </article>
+                    <hr/>
+                </div>
+                <div class="card-block">
+                    <h4 class="card-item">分类:
+                        <a href="#"
+                           th:text="${articleModel.catalog.name}">饺子</a>
+                    </h4>
+                    <h4 class="card-item">标签:
+                        <a th:each="tag:${#strings.arraySplit(articleModel.tags, ',')}"
+                           th:href=" '/search?keyword='+${tag}">
+                            <span class="badge" th:text="${tag}">Rice</span>
+                        </a>
+                    </h4>
+                </div>
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <div class="comment">
+                        <h4>评论:</h4>
+                        <div class="row">
+                            <div class="col-md-11">
+                            <textarea class="textarea" placeholder="你也吃过这道美食吗？快来发表你的看法吗！" required="required"
+                                      id="commentContent"></textarea>
+                            </div>
+                        </div>
+                        <a class="btn btn_edit" role="button" id="submitComment">评论</a>
+                        <a class="btn btn_edit" role="button" th:if="${currentPraise}==null" id="submitPraise">点赞</a>
+                        <a class="btn btn_edit" role="button" th:if="${currentPraise}"
+                           th:attr="praiseId=${currentPraise.id}"
+                           id="cancelPraise">取消
+                        </a>
+                    </div>
+                </div>
+                <div sec:authorize="hasRole('ROLE_USER')">
+                    <div class="comment">
+                        <h4>评论:</h4>
+                        <div class="row">
+                            <div class="col-md-11">
+                            <textarea class="textarea" placeholder="你也吃过这道美食吗？快来发表你的看法吗！"
+                                      id="commentContent"></textarea>
+                            </div>
+                        </div>
+                        <a class="btn btn_edit" role="button" id="submitComment">评论</a>
+                        <a class="btn btn_edit" role="button" th:if="${currentPraise}==null" id="submitPraise">点赞</a>
+                        <a class="btn btn_edit" role="button" th:if="${currentPraise}"
+                           th:attr="praiseId=${currentPraise.id}"
+                           id="cancelPraise">取消
+                        </a>
+                    </div>
+                </div>
+                <div sec:authorize="isAnonymous()">
+                    <h4>登录后才能点赞和评论哟〜</h4>
+                </div>
+                <div class="comment_block" id="mainContainer">
+                    <div class="comment_row" id="mainContainerReplace" th:each="comment,commentStat:${comments}"
+                         th:object="${comment}">
+							<span class="comment_img">
+			                  <a href="/u/hyz" title="hyz" th:href=" '/u/'+ *{user.username}"
+                                 th:title="*{user.username}">
+			                    <img src="../../static/images/avatar02.jpg" class="article-avatar-50"
+                                     th:src="*{user.avatar}==null?'/images/avatar.jpg' : *{user.avatar}"
+                                     alt="hyz"/>
+			                  </a>
+					        </span>
+                        <div class="comment_text">
+                            <a href="/u/hyz" class="comment_user" th:href=" '/u/'+ *{user.username}"
+                               th:text="*{user.username}">hyz</a>
+                            <span class="comment_info">[[${commentStat.index}+1]]楼  [[${#dates.format(comment.createTime, 'yyyy-MM-dd HH:mm')}]]</span>
+                            <a href="javascript:void(0)" th:if="${commentOwner} eq *{user.username}"
+                               th:attr="commentId=*{id}" class="article-delete-comment">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                            <p class="comment_content" th:text="*{content}">看起来好有食欲啊，下次一定要去试试！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--content-->
+
+<div th:include="fragment/foot::div"/>
+<!--内联的js-->
+<script th:inline="javascript">
+    var articleId = [[${articleModel.id}]];
+    var articleUrl = '/u/' + [[${articleModel.user.username}]] + '/articles/' + [[${articleModel.id}]];
+</script>
+<!--本页的自定义js-->
+<script th:src="@{/js/article.js}" type="application/javascript" ></script>
+</body>

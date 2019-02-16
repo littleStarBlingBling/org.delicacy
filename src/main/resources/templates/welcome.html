@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="head :: div"/>
+    <title>欢迎来到食在郑大--美食尽在身边</title>
+</head>
+<body>
+<div class="container">
+    <div class="interval-change">
+        <img src="../../images/text00.png" id="i-c-img"/>
+    </div>
+    <div class="btn-login">
+        <div class="link mission-link">
+            <a class="button" href="/login">
+                <span class="line line-top"></span>
+                <span class="line line-right"></span>
+                <span class="line line-bottom"></span>
+                <span class="line line-left"></span>
+                <span class="text">登 录</span>
+            </a>
+        </div>
+    </div>
+    <div class="btn-register">
+        <div class="link mission-link">
+            <a class="button" href="/register">
+                <span class="line line-top"></span>
+                <span class="line line-right"></span>
+                <span class="line line-bottom"></span>
+                <span class="line line-left"></span>
+                <span class="text">注 册</span>
+            </a>
+        </div>
+    </div>
+</div>
+<div th:include="fragment/foot :: div"/>
+
+</body>

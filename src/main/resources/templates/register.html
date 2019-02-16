@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="head::div"/>
+    <title>注册-从这里开始</title>
+    <link rel="stylesheet" th:href="@{../css/register.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="register">
+        <div class="welcome">
+            <span class="w_text">欢迎注册</span>
+        </div>
+        <div class="form_position">
+            <form th:action="@{~/register}" method="post" accept-charset="utf-8" class="form_style">
+                <div class="usr">
+                    <label class="input_type" for="username">
+                        <span class="text">用户名</span>
+                        <input type="text" name="username" id="username" class="i_radius" placeholder="请使用英文用户名"/>
+                    </label>
+                    <p class="msg">
+                        <span class="ati"></span>
+                    </p>
+                    <b id="count" class="hidden"></b>
+                </div>
+                <div class="pwd">
+                    <label class="input_type">
+                        <span class="text">密码</span>
+                        <input type="password" name="password" class="i_radius" placeholder="请输入您要设置的密码"/>
+                    </label>
+                    <p class="msg">
+                        <span class="err"></span>
+                    </p>
+                </div>
+                <div class="hidden" id="pwd_state">
+                    <em class="hidden " id="state_1">弱</em>
+                    <em class="hidden" id="state_2">中</em>
+                    <em class="hidden" id="state_3">强</em>
+                </div>
+                <div class="pwd_2">
+                    <label class="input_type">
+                        <span class="text">确认密码</span>
+                        <input type="password" disabled="disabled" class="i_radius" placeholder="请再次输入您的密码"/>
+                    </label>
+                    <p class="msg">
+                        <span class="err"></span>
+                    </p>
+                </div>
+                <div class="email">
+                    <label class="input_type">
+                        <span class="text">邮箱</span>
+                        <input type="email" name="email" class="i_radius" placeholder="请输入您的邮箱"/>
+                    </label>
+                    <p class="msg">
+                        <span class="err"></span>
+                    </p>
+                </div>
+                <div class="r_btn">
+                    <input class="submitBtn" type="submit" value="注册"/>
+                </div>
+            </form>
+        </div>
+        <div class="f-bg-style"></div>
+    </div>
+</div>
+<div th:include="fragment/foot::div"/>
+<script th:src="@{/js/register.js}" type="application/javascript"></script>
+</body>

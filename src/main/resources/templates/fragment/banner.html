@@ -1,0 +1,90 @@
+
+<div id="header">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- brand -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand icon" href="/index" th:href="@{/index}">
+                    <img alt="Brand" style="padding-left: 50px;" th:src="@{/images/brand.png}"/>
+                </a>
+            </div>
+            <!-- 菜单栏 -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <ul class="nav navbar-nav navbar-right ul_nav" >
+                        <li><a href="/index" th:href="@{/index}">首页</a></li>
+                        <!-- 下拉菜单 -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="/u/hyz" aria-expanded="true" id="dropdownMenu1" aria-haspopup="true"
+                               th:href="@{'/u/' + ${#authentication.name}}" >
+                                <span sec:authentication="name" ></span>
+                                <span class="fa fa-arrow-down"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="/u/hyz/profile"
+                                       th:href="@{'/u/' + ${#authentication.name}} + '/profile'">个人设置</a></li>
+                                <li><a href="/u/hyz" th:href="@{'/u/'+${#authentication.name}}">历史分享</a></li>
+                                <li><a href="/u/hyz/articles/edit"
+                                       th:href="'/u/'+${#authentication.name}+'/articles/edit'">发表新分享</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="/u/hyz/search" th:href="@{/search}">搜索 <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
+                        <li ><a href="/admins" th:href="@{/admin}">管理中心 <span class="glyphicon glyphicon-align-justify"></span></a></li>
+                        <li>
+                            <div class="form_logout">
+                                <form action="/logout" th:action="@{/logout}" method="post" >
+                                    <input class="form_btn" type="submit" value="退出"/>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div sec:authorize="hasRole('ROLE_USER')">
+                    <ul class="nav navbar-nav navbar-right ul_nav" >
+                        <li><a href="/index" th:href="@{/index}">首页</a></li>
+                        <!-- 下拉菜单 -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="/u/hyz" aria-expanded="true" id="dropdownMenu2" aria-haspopup="true"
+                               th:href="@{'/u/'+${#authentication.name}}">
+                                <span sec:authentication="name" ></span>
+                                <span class="fa fa-arrow-down"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <li><a href="/u/hyz/profile"
+                                       th:href="@{'/u/' + ${#authentication.name}} + '/profile'">个人设置</a></li>
+                                <li><a href="/u/hyz" th:href="@{'/u/'+${#authentication.name}}">历史分享</a></li>
+                                <li><a href="/u/hyz/articles/edit"
+                                       th:href="'/u/'+${#authentication.name}+'/articles/edit'">发表新分享</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/u/hyz/search" th:href="@{/search}">搜索 <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
+                        <li>
+                            <div class="form_logout">
+                                <form action="/logout" th:action="@{/logout}" method="post" >
+                                    <input class="form_btn" type="submit" value="退出"/>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div sec:authorize="isAnonymous()">
+                    <ul class="nav navbar-nav navbar-right ul_nav" >
+                        <li><a href="/index" th:href="@{/index}">首页</a></li>
+                        <li><a href="/welcome" th:href="@{/welcome}">登录/注册</a></li>
+                        <li><a href="/u/hyz/search" th:href="@{/search}">搜索 <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+</div>

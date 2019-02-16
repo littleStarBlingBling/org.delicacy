@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <div th:include="fragment/articleHead::div"/>
+    <title>食在郑大 - 搜索美食</title>
+    <link rel="stylesheet" th:href="@{/../css/search.css}"/>
+</head>
+<body>
+<div th:include="fragment/banner::div"/>
+<!--content-->
+<div class="container article-content-container">
+    <div class="row row_content">
+        <!--左侧-->
+        <div class="col-md-8 ">
+            <div class="row_left">
+                <form class="form-inline">
+                    <input class="form_search" type="text" placeholder="搜索" id="indexkeyword" th:value="${keyword}" />
+                    <a href="javascript:void(0)" class="btn btn_search" id="indexsearch">
+                        <i class="fa fa-search fa-lg " aria-hidden="true"></i>
+                    </a>
+                </form>
+                <p class="text_p">
+                    <span class="text">热门标签搜索：</span>
+                    <span  th:each="catalog, catalogStat :${catalogs}" th:object="${catalog}" class="r-font">
+                       <span th:text="${catalog}">早餐</span>
+                       <span class="line">|</span>
+                   </span>
+                </p>
+            </div>
+            <div id="mainContainer">
+                <div id="mainContainerReplace">
+                    <div class="card" th:each="article: ${articleList}">
+                        <div class="card-block">
+                            <h2 class="card-title">
+                              <span>
+                                  <a th:href="'/u/'+${article.user.username}" href="/u/hyz" title="hyz" th:title="${article.user.username}">
+                                      <img src="../../images/avatar02.jpg" th:src="${article.user.avatar}==null ? '/images/avatar.jpg':${article.user.avatar}" class="article-avatar-50"/>
+                                  </a>
+                              </span>
+                                <a href="/u/hyz/articles/1" th:href=" '/u/'+${article.user.username}+'/articles/'+${article.id}" th:title="${article.title}" title="hyz" class="card-link" th:text="${article.title}">
+                                    菊园一楼南边的珍菌面
+                                </a>
+                            </h2>
+                            <p class="card-text" th:text="${article.summary}">面汤特别好喝，配菜丰富，价格实惠，特别适合天冷的时候来一碗，又饱又暖</p>
+                            <div class="card-text">
+                                <a href="/u/hyz" th:href=" '/u/'+${article.user.username}" class="card-link" th:text="${article.user.username}">hyz</a>
+                                <span class="word">发表于[[${#dates.format(article.createTime, 'yyyy-MM-dd HH:mm')}]]</span>
+                                <i class="fa fa-eye" aria-hidden="true">[[${article.readSize}]]</i>
+                                <i class="fa fa-heart-o" aria-hidden="true">[[${article.praiseSize}]]</i>
+                                <i class="fa fa-comment-o" aria-hidden="true">[[${article.commentSize}]]</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--分页处理-->
+            <nav id="page" data-th-if="${page.totalPages gt 0}" data-th-object="${page}"
+                 class="Page navigation">
+
+                <!-- 处理页数小于等于7 的情况 -->
+                <ul class="pagination" data-th-if="${page.totalPages le 7}">
+                    <!-- 总记录数 -->
+                    <li class="tbpage-total-elements disabled">共[[${page.totalElements}]]条</li>
+
+                    <!-- 页面大小 -->
+                    <select class="custom-select tbpage-size" data-th-attr="pageIndex=${page.number}">
+                        <option data-th-each="i : ${#arrays.toIntegerArray({5,10,40,100})}" data-th-value="${i}"
+                                data-th-selected="${i eq page.size}" data-th-text="${i}"></option>
+                    </select>
+
+                    <!-- 上一页 -->
+                    <li class="page-item" data-th-classappend="*{first} ? 'disabled' : ''">
+                        <a href="javascript:void(0);" class="page-link tbpage-item"
+                           data-th-attr="pageIndex=${page.number} - 1" aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+
+                    <!-- 迭代生成页码 -->
+                    <li class="page-item" data-th-each="i : ${#numbers.sequence(1, page.totalPages)}"
+                        data-th-classappend="${(page.number + 1) eq i} ? 'active' : ''">
+                        <a class="page-link tbpage-item" data-th-attr="pageIndex=${i} - 1"
+                           href="javascript:void(0);">
+                            <span data-th-text="${i}"></span>
+                        </a>
+                    </li>
+
+                    <!-- 下一页 -->
+                    <li class="page-item" data-th-classappend="*{last} ? 'disabled' : ''">
+                        <a href="javascript:void(0);" class="page-link tbpage-item"
+                           data-th-attr="pageIndex=${page.number} + 1" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- 处理页数大于7 的情况 -->
+                <ul class="pagination" data-th-if="${page.totalPages gt 7}">
+                    <!-- 总记录数 -->
+                    <li class="tbpage-total-elements disabled">共[[${page.totalElements}]]条</li>
+
+                    <!-- 页面大小 -->
+                    <select class="custom-select tbpage-size" data-th-attr="pageIndex=${page.number}">
+                        <option data-th-each="i : ${#arrays.toIntegerArray({5,10,40,100})}" data-th-value="${i}"
+                                data-th-selected="${i eq page.size}" data-th-text="${i}"></option>
+                    </select>
+
+                    <!-- 上一页 -->
+                    <li class="page-item" data-th-classappend="*{first} ? 'disabled' : ''">
+                        <a href="javascript:void(0);" class="page-link tbpage-item"
+                           data-th-attr="pageIndex=${page.number} - 1" aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+
+                    <!-- 首页 -->
+                    <li class="page-item" data-th-classappend="${(page.number + 1) eq 1} ? 'active' : ''">
+                        <a href="javascript:void(0);" class="page-link tbpage-item"
+                           data-th-attr="pageIndex=0">1</a>
+                    </li>
+
+
+                    <!-- 当前页面小于等于4 -->
+                    <li class="page-item" data-th-if="${(page.number + 1) le 4}"
+                        data-th-each="i : ${#numbers.sequence(2,5)}"
+                        data-th-classappend="${(page.number + 1) eq i} ? 'active' : ''">
+                        <a class="page-link tbpage-item" href="javascript:void(0);"
+                           data-th-attr="pageIndex=${i} - 1">
+                            <span data-th-text="${i}"></span>
+                        </a>
+                    </li>
+
+                    <li class="page-item disabled" data-th-if="${(page.number + 1) le 4}">
+                        <a href="javascript:void(0);" class="page-link tbpage-item">
+                            <span aria-hidden="true">...</span>
+                        </a>
+                    </li>
+
+                    <!-- 最后一页与当前页面之差，小于等于3 -->
+                    <li class="page-item disabled" data-th-if="${(page.totalPages-(page.number + 1)) le 3}">
+                        <a href="javascript:void(0);" class="page-link tbpage-item">
+                            <span aria-hidden="true">...</span>
+                        </a>
+                    </li>
+                    <li class="page-item" data-th-if="${(page.totalPages-(page.number + 1)) le 3}"
+                        data-th-each="i : ${#numbers.sequence(page.totalPages-4, page.totalPages-1)}"
+                        data-th-classappend="${(page.number + 1) eq i} ? 'active' : ''">
+                        <a class="page-link tbpage-item" href="javascript:void(0);"
+                           data-th-attr="pageIndex=${i} - 1">
+                            <span data-th-text="${i}"></span>
+                        </a>
+                    </li>
+
+                    <!-- 最后一页与当前页面之差大于3，且  当前页面大于4-->
+
+                    <li class="page-item disabled"
+                        data-th-if="${((page.number + 1) gt 4) &amp;&amp; ((page.totalPages-(page.number + 1)) gt 3 )}">
+                        <a href="javascript:void(0);" class="page-link tbpage-item">
+                            <span aria-hidden="true">...</span>
+                        </a>
+                    </li>
+                    <li class="page-item"
+                        data-th-if="${((page.number + 1) gt 4)  &amp;&amp; ((page.totalPages-(page.number + 1)) gt 3 )}">
+                        <a href="javascript:void(0);" class="page-link tbpage-item"
+                           data-th-attr="pageIndex=${page.number}">[[${page.number}]]</a>
+                    </li>
+                    <li class="page-item active"
+                        data-th-if="${((page.number + 1) gt 4)  &amp;&amp; ((page.totalPages-(page.number + 1)) gt 3 )}">
+                        <a href="javascript:void(0);" class="page-link tbpage-item"
+                           data-th-attr="pageIndex=${page.number} + 1">[[${page.number + 1}]]</a>
+                    </li>
+                    <li class="page-item"
+                        data-th-if="${((page.number + 1) gt 4)  &amp;&amp; ((page.totalPages-(page.number + 1)) gt 3 )}">
+                        <a href="javascript:void(0);" class="page-link tbpage-item"
+                           data-th-attr="pageIndex=${page.number} + 2">[[${page.number + 2}]]</a>
+                    </li>
+
+                    <li class="page-item disabled"
+                        data-th-if="${((page.number + 1) gt 4)  &amp;&amp; ((page.totalPages-(page.number + 1)) gt 3 )}">
+                        <a href="javascript:void(0);" class="page-link tbpage-item">
+                            <span aria-hidden="true">...</span>
+                        </a>
+                    </li>
+
+                    <!-- 最后一页 -->
+                    <li class="page-item"
+                        data-th-classappend="${(page.number + 1) eq page.totalPages} ? 'active' : ''">
+                        <a href="javascript:void(0);" class="page-link tbpage-item"
+                           data-th-attr="pageIndex=${page.totalPages} - 1">[[${page.totalPages}]]</a>
+                    </li>
+
+                    <!-- 下一页 -->
+                    <li class="page-item" data-th-classappend="*{last} ? 'disabled' : ''">
+                        <a href="javascript:void(0);" class="page-link tbpage-item"
+                           data-th-attr="pageIndex=${page.number} + 1" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!--分页处理-->
+
+        </div>
+        <!--右侧-->
+        <div class="col-md-4">
+            <!--热门用户-->
+            <div class="card card_share">
+                <h4 class="card-header">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span class="word">热门用户</span>
+                </h4>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <span th:each="user:${users}" th:object="${user}">
+                           <a href="/u/hyz" th:href=" '/u/'+*{username}" title="hyz" th:title="*{username}">
+                               <img src="../../images/avatar.jpg" th:src="*{avatar}==null ? '/images/avatar.jpg':*{avatar}" class="article-avatar-50"/>
+                           </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--最新分享-->
+            <div class="card card_share">
+                <h4 class="card-header">
+                    <i class="fa fa-line-chart" aria-hidden="true"></i>
+                    <span class="word">最新分享</span>
+                </h4>
+                <div class="list-group" th:each="newArticle,newArticleStat : ${newest}" th:object="${newArticle}">
+                    <a th:href=" '/u/'+*{user.username}+'/articles/'+*{id}" class="list-group-item">
+                        [[*{title}]]
+                        <span class="badge badge-pill" th:classappend="${newArticleStat.index} eq 0 ? 'badge-danger': (${newArticleStat.index} eq 1 ? 'badge-warning':(${newArticleStat.index} eq 2 ? 'badge-info':'badge-default'))">[[*{readSize}]]</span>
+                    </a>
+                </div>
+            </div>
+            <!--热门分享-->
+            <div class="card card_share">
+                <h4 class="card-header">
+                    <i class="fa fa-share" aria-hidden="true"></i>
+                    <span class="word">热门分享</span>
+                </h4>
+                <div class="list-group" th:each="hotArticle,hotArticleStat : ${hotest}" th:object="${hotArticle}">
+                    <a th:href=" '/u/'+*{user.username}+'/articles/'+*{id}" class="list-group-item">
+                        [[*{title}]]
+                        <span class="badge badge-pill" th:classappend="${hotArticleStat.index} eq 0 ? 'badge-danger': (${hotArticleStat.index} eq 1 ? 'badge-warning':(${hotArticleStat.index} eq 2 ? 'badge-info':'badge-default'))">[[*{readSize}]]</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--content-->
+<div th:include="fragment/foot::div"/>
+<!--本页的自定义js-->
+<script th:src="@{js/search.js}" type="application/javascript"></script>
+</body>

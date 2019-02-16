@@ -1,0 +1,207 @@
+/*文章编辑页*/
+body {
+    background: #FFF;
+}
+
+
+
+.article_container{
+    margin-top: 3em;
+    font-size: 1.2em;
+    background: #fff;
+}
+
+
+/*美食细节*/
+.details_all{
+    border: 1px solid #CCC;
+    border-radius: 0.25em;
+    width: 43em;
+    height: 20em;
+    margin-top: 0.8em;
+}
+.details_title{
+    margin-left: 1.5em;
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+    color:#FFF;
+    display: block;
+    background:  #608d9d;
+    width: 5em;
+    height: 2em;
+    text-align: center;
+    line-height: 1.9em;
+    border-radius:0.25em;
+}
+
+.canteen {
+    border: 1px solid #CCC;
+    border-radius: 0.25em;
+    height: 3em;
+    width: 40%;
+    padding-top: 0.5em;
+    padding-left: 0.6em;
+    margin-left: 0.8em;
+    line-height: 2em;
+}
+
+
+
+
+.details_item{
+    margin-bottom: 0.5em;
+    margin-top: 1.2em;
+    margin-left: 0.8em;
+    padding-left: 0.6em;
+    width: 90%;
+}
+
+
+
+
+
+/*content*/
+.article_textarea{
+    margin-bottom: 10px;
+    width: 100%;
+    height: 80px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    resize: none;
+}
+
+.summary{
+
+    margin-top: 1.5em;
+}
+.summary_textarea{
+    display: block;
+    width: 100%;
+    height: 16em;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+mtext ::-webkit-input-placeholder {
+    color: #999;
+    opacity: 1;
+    font-size: 1.1em;
+}
+textarea::-webkit-input-placeholder{
+    color: #999;
+    opacity: 1;
+    font-size: 1.1em;
+}
+textarea::-moz-placeholder{
+    color: #999;
+    opacity: 1;
+    font-size: 1.1em;
+}
+textarea:-moz-placeholder{
+    color: #999;
+    opacity: 1;
+    font-size: 1.1em;
+}
+textarea:-ms-input-placeholder{
+    color: #999;
+    opacity: 1;
+    font-size: 1.1em;
+}
+
+.card-header {
+    padding-top: 0.8em;
+    padding-left: 1em;
+    font-size: 1.5em;
+    width:100%;
+    height: 2.5em;
+    background: #eceded;
+    border: 1px solid #ccc;
+    margin-top: 0;
+}
+/*右侧栏目*/
+.insert_img{
+    width: 6em;
+    height: 2.5em;
+    background: #608d9d;
+    color: #FFF;
+}
+.insert_img:hover{
+    background: none;
+    border: 1px solid #608d9d;
+    color: #999;
+    transition: ease-out 0.3s;
+}
+
+.insert_btn{
+    width: 100%;
+    height: 2.8em;
+    font-size: 1.1em;
+    margin-top: 1em;
+}
+
+.set_label{
+    font-size: 1.2em;
+}
+.card_category{
+    height: 25em;
+    border: 1px solid #CCC;
+    border-radius: 0.25em;
+}
+.set_row{
+    height: 6em;
+    margin-top: 0.5em;
+}
+
+.set_category{
+    margin-top: 1.6em;
+}
+
+.form-control-tag{
+    border: 1px solid #ccc;
+    height: 5em;
+
+}
+
+.form-control-chosen{
+    height: 2.6em;
+    width: 98%;
+}
+
+
+/*手机超小屏幕下的单独样式 xs < 768px */
+@media (max-width: 767px) {
+ .details_all{
+     width: 90%;
+ }
+    .canteen{
+        width: 96%;
+    }
+
+    .set_row{
+        padding-top: 2em;
+    }
+}
+
+/*手机超小屏幕下的单独样式 xs < 768px */
+
+/*平板小屏幕样式 768px <= sm < 992px */
+@media (min-width: 768px) and (max-width: 991px) {
+    .details_all{
+        width: 90%;
+    }
+
+    .canteen{
+        width: 96%;
+    }
+
+    .set_row{
+        padding-top: 2em;
+    }
+}
+
+/*平板小屏幕样式 768px <= sm < 992px*/

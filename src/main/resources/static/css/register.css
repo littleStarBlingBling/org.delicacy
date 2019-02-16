@@ -1,0 +1,308 @@
+/*reset*/
+body, div, dl, dt, dd, ul, li, ol, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+img {
+    border: none;
+}
+
+input, select, img, label {
+    vertical-align: middle;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+}
+
+/*reset*/
+
+/*通用*/
+.container {
+    position: absolute;
+
+}
+
+.hidden {
+    display: none;
+}
+
+label {
+    width: 23em;
+    height: 5em;
+    line-height: 2.2em;
+    font-size: 0.99em;
+}
+
+input {
+    width: 19em;
+    float: right;
+    border: none;
+}
+
+::-webkit-input-placeholder {
+    font-size: 0.7em;
+    color: #4a6066;
+    font-style: italic;
+}
+
+/*register*/
+
+/*欢迎注册*/
+.welcome {
+    top: 13.8em;
+    left: 37em;
+    width: 20em;
+    height: 5em;
+    position: absolute;
+}
+
+.w_text {
+    font-size: 3em;
+    font-weight: bold;
+    color: #4a4c4b;
+    text-shadow: 2px 2px 5px #fff;
+}
+
+/*欢迎注册*/
+
+/*灰色背景*/
+.f-bg-style {
+    opacity: 0.5;
+    background: #999;
+    z-index: -1;
+    position: absolute;
+    top: 10em;
+    left: 31em;
+    width: 25em;
+    height: 34em;
+}
+
+/*灰色背景*/
+
+/*表单定位*/
+.form_position {
+    left: 31.5em;
+    top: 20em;
+    position: absolute;
+    width: 30em;
+    height: 20em;
+}
+
+.form_style {
+    padding: 0;
+    margin: 0;
+
+}
+
+/*表单定位*/
+
+/*表单样式*/
+
+.input_type {
+    top: 18em;
+    height: 3.1em;
+    width: 25em;
+    padding-right: 2em;
+}
+
+.i_radius {
+    border-radius: 2px;
+    border: none;
+    width: 14em;
+}
+
+.text {
+    color: white;
+}
+
+/*表单样式*/
+
+/*js*/
+.msg {
+    padding-left: 1em;
+    padding-top: -1em;
+}
+
+#count {
+    padding-left: 1em;
+}
+
+.ati {
+    width: 300px;
+    color: #3a3c3c;
+    text-shadow: 2px 2px 5px #fff;
+    font-size: 0.8em;
+}
+
+.err {
+    width: 300px;
+    color: #3a3c3c;
+    text-shadow: 2px 2px 5px #fff;
+}
+
+.ok {
+    width: 300px;
+    color: #3a3c3c;
+    text-shadow: 2px 2px 5px #fff;
+}
+
+/*密码等级*/
+.pwd_state {
+    border: none;
+    display: inline-block;
+    font-size: 1.2em;
+    margin-left: 4em;
+    width: 15em;
+    height: 2em;
+    margin-bottom: 0.5em;
+    margin-top: -0.8em;
+}
+
+.state_light {
+    display: inline-block;
+    margin-bottom: -1em;
+    margin-left: 2em;
+    width: 3em;
+    height: 1.3em;
+    text-align: center;
+    background: #b5efe2;
+    vertical-align: middle;
+    color: #0f0f0f;
+    padding: 0;
+}
+
+.state_middle {
+    display: inline-block;
+    margin-bottom: -1em;
+    width: 3em;
+    height: 1.3em;
+    text-align: center;
+    background: #80aeaf;
+    vertical-align: middle;
+    color: #0f0f0f;
+    padding: 0;
+
+}
+
+.state_strong {
+    display: inline-block;
+    margin-bottom: -1em;
+    width: 3em;
+    height: 1.3em;
+    text-align: center;
+    background: #608b8b;
+    vertical-align: middle;
+    color: #0f0f0f;
+    padding: 0;
+}
+
+/*密码等级*/
+
+/*按钮*/
+.submitBtn {
+    margin-top: 0.8em;
+    margin-left: 8em;
+    width: 8em;
+    height: 2.8em;
+    background: #434444;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    transition: 0.7s ease;
+    float: none;
+
+}
+
+.submitBtn:hover {
+    background: none;
+    border: 1px solid #fff;
+    color: #fff;
+
+}
+
+/*按钮*/
+
+/*register*/
+
+.pwd2 {
+    background: #5cb85c
+}
+
+/*login*/
+
+/*灰色背景*/
+.l-f-bg-style {
+    opacity: 0.5;
+    background: #999;
+    z-index: -1;
+    position: absolute;
+    top: 12em;
+    left: 30em;
+    width: 26em;
+    height: 30em;
+}
+
+/*灰色背景*/
+
+/*表单样式*/
+.l-input_type {
+    padding-top: 0.1em;
+    padding-bottom: 6em;
+}
+
+.l-i_radius {
+    height: 2.8em;
+}
+
+/*表单样式*/
+
+.error_msg {
+    position: absolute;
+    top: 10em;
+    left: 4em;
+    color: red;
+    text-shadow: 1px 1px 2px #fff;
+
+}
+
+.c_remember {
+
+    position: absolute;
+}
+
+.input_remember {
+   color: #fff;
+    margin-left: 4.1em;
+}
+
+/*login*/
+
+
+/*手机超小屏幕下的单独样式 xs < 768px */
+@media (max-width: 767px) {
+
+
+}
+
+/*手机超小屏幕下的单独样式 xs < 768px */
+
+/*平板小屏幕样式 768px <= sm < 992px */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+
+@media (min-width: 991px) {
+    .form_position{
+
+        position: absolute;
+    }
+
+}
+

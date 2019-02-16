@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <div th:include="fragment/articleHead::div"/>
+    <title>食在郑大 - 分享生活点滴</title>
+</head>
+<body>
+<div th:include="fragment/banner::div"/>
+
+<!-- 全屏轮播图-->
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+    </ol>
+
+    <!-- 图 -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="../../images/carousel01.jpg" th:src="@{/images/carousel01.jpg}" alt="c.1"/>
+            <div class="carousel-caption">
+                <h2>郑大食堂</h2>
+                <p>delicacy in zzu</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="../../images/carousel02.jpg" th:src="@{/images/carousel02.jpg}" alt="c.2"/>
+            <div class="carousel-caption">
+                <h2>荷园餐厅</h2>
+                <p>delicacy in zzu</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="../../images/carousel03.jpg" th:src="@{/images/carousel03.jpg}" alt="c.3"/>
+            <div class="carousel-caption">
+                <h2>郑大南门</h2>
+                <p>delicacy in zzu</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="../../images/carousel04.jpg" th:src="@{/images/carousel04.jpg}" alt="c.4"/>
+            <div class="carousel-caption">
+                <h2>北核心教学区</h2>
+                <p>delicacy in zzu</p>
+            </div>
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+<!--全屏轮播图-->
+
+<!-- 推荐-->
+<div id="recommend">
+    <div class="r-hot">
+        <div class="r-text">
+            <i class="fa fa-fire" aria-hidden="true"></i> 热门推荐
+        </div>
+        <div class="tag">
+            <a href="/articles?keyword=1" th:href=" '/articles?keyword='+*{name} " th:each="tag,tagStat:${tags}"
+               th:object="${tag}" class="r-font">
+                <span th:text="*{name}">早餐<span class="line">|</span></span>
+            </a>
+
+        </div>
+        <hr/>
+        <!--自动生成的推荐内容-->
+        <div class="mainContainer" id="mainContainer">
+            <div id="mainContainerReplace">
+                <div class="card" th:each="article:${articleList}">
+                    <div class="card-block">
+                        <h2 class="card-title">
+                        <span>
+
+                            <a href="/u/hyz" title="hyz" th:href=" '/u/'+${article.user.username}"
+                               th:title="${article.user.username}">
+                                <img src="../../images/avatar.jpg"
+                                     th:src="${article.user.avatar}==null?'/images/avatar.jpg':${article.user.avatar}"
+                                     class="article-avatar-50"/>
+                            </a>
+                        </span>
+                            <a href="/u/hyz/articles/1" class="card-link" title="hyz"
+                               th:href=" '/u/'+${article.user.username}+'/articles/'+${article.id}"
+                               th:title="${article.title}" th:text="${article.title}">海带炖老母鸡汤</a>
+                        </h2>
+                        <p class="card-text" th:text="${article.summary}">
+                            某人运动时又闪到腰了，这两天都只能卧床摊在家里，每次闪到腰都是旧伤的地方，
+                            这痛的人或许只有他知道吧，而我就只能包揽整个家的家务了，除了家务还要好生
+                            伺候着他，今天我特地跑去新菜市场，买了猪腰和莲藕，准备回去煲汤给他补补腰，
+                            时下正是莲藕上市之时，莲藕具有健脾开胃、益血生肌的功效，
+                        </p>
+                        <div class="card-text">
+                            <a href="/u/hyz" th:href=" '/u/'+${article.user.username}" class="card-link"
+                               th:text="${article.user.username}">小ZZ</a>
+                            发表于 [[${#dates.format(article.createTime, 'yyyy-MM-dd HH:mm')}]]
+                            <i class="fa fa-eye" aria-hidden="true">[[${article.readSize}]]
+                            </i>
+                            <i class="fa fa-heart-o" aria-hidden="true">[[${article.praiseSize}]]</i>
+                            <i class="fa fa-comment-o" aria-hidden="true">[[${article.commentSize}]]</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="more">
+            <a href="javascript:void(0)" th:href="@{/search}" class="r-font">更多
+                <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+            </a>
+        </div>
+
+    </div>
+    <div class="r-personal">
+        <div class="r-text" aria-hidden="true">
+            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 个性推荐
+        </div>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <div class="r-p-tag">
+                <span class="r-font">根据您设置的<a href="/u/hyz/profile"
+                                              th:href="@{'/u/'+${#authentication.name}}+'/articles'"
+                                              class="r-font">分类</a></span>
+            </div>
+        </div>
+        <div sec:authorize="hasRole('ROLE_USER')">
+            <div class="r-p-tag">
+                <span class="r-font">根据您设置的<a href="/u/hyz/profile"
+                                              th:href="@{'/u/'+${#authentication.name}}+'/articles'"
+                                              class="r-font">分类</a></span>
+            </div>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <div class="r-p-tag">
+                <span class="r-font">请到历史分享中设置您的分类</span>
+            </div>
+        </div>
+        <hr class="hr-1"/>
+        <!--自动生成的推荐内容-->
+        <div class="mainContainer">
+            <div class="card" th:each="article:${articleList}">
+                <div class="card-block">
+                    <h2 class="card-title">
+                        <span>
+                            <a href="/u/hyz" title="hyz" th:href=" '/u/'+${article.user.username}"
+                               th:title="${article.user.username}">
+                                <img src="../static/images/avatar.jpg"
+                                     th:src="${article.user.avatar}==null?'/images/avatar.jpg':${article.user.avatar}"
+                                     class="article-avatar-50"/>
+                            </a>
+                        </span>
+                        <a href="/u/hyz/articles/1" class="card-link" title="hyz"
+                           th:href=" '/u/'+${article.user.username}+'/articles/'+${article.id}"
+                           th:title="${article.title}" th:text="${article.title}">海带炖老母鸡汤</a>
+                    </h2>
+                    <p class="card-text" th:text="${article.summary}">
+                        某人运动时又闪到腰了，这两天都只能卧床摊在家里，每次闪到腰都是旧伤的地方，
+                        这痛的人或许只有他知道吧，而我就只能包揽整个家的家务了，除了家务还要好生
+                        伺候着他，今天我特地跑去新菜市场，买了猪腰和莲藕，准备回去煲汤给他补补腰，
+                        时下正是莲藕上市之时，莲藕具有健脾开胃、益血生肌的功效，
+                    </p>
+                    <div class="card-text">
+                        <a href="/u/hyz" th:href=" '/u/'+${article.user.username}" class="card-link"
+                           th:text="${article.user.username}">小ZZ</a>
+                        发表于 [[${#dates.format(article.createTime, 'yyyy-MM-dd HH:mm')}]]
+                        <i class="fa fa-eye" aria-hidden="true">[[${article.readSize}]]</i>
+                        <i class="fa fa-heart-o" aria-hidden="true">[[${article.praiseSize}]]</i>
+                        <i class="fa fa-comment-o" aria-hidden="true">[[${article.commentSize}]]</i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="more">
+            <a href="#" class="r-font" th:href="@{/search}">更多
+                <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></a>
+        </div>
+
+    </div>
+</div>
+<!-- 推荐-->
+
+<!-- 页脚-->
+<footer>
+    <p class="pull-right"><a href="#" class="f-hover">回到顶部</a></p>
+    <div class="info">
+        <p>
+            <a href="#" target="_blank" class="f-hover">关于本站</a>
+            <span class="line">|</span>
+            <a href="#" target="_blank" class="f-hover">意见反馈</a>
+            <span class="line">|</span>
+            <a href="#" target="_blank" class="f-hover">友情链接</a>
+            <span class="line">|</span>
+        </p>
+
+        <p class="f-copyright">
+            <a href="#"> www.delicacyinzzu.com</a>
+        </p>
+    </div>
+</footer>
+<!--页脚-->
+
+<div th:include="fragment/foot::div"/>
+</body>
+</html>

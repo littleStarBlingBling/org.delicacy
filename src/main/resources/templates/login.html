@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="head :: div"/>
+    <title>登录--欢迎您的到来</title>
+    <link rel="stylesheet" th:href="@{../css/register.css}" />
+</head>
+<body>
+<div class="container">
+    <div class="login">
+        <div class="welcome">
+            <span class="w_text">欢迎登录</span>
+        </div>
+        <div class="form_position">
+            <form th:action="@{~/login}" method="post" accept-charset="utf-8" class="form_style">
+                <div class="usr">
+                    <label class="l-input_type">
+                        <span class="text">用户名</span>
+                        <input type="text" name="username" class="l-i_radius" placeholder="请输入您的用户名"/>
+                    </label>
+                </div>
+                <div class="pwd">
+                    <label class="l-input_type">
+                        <span class="text">密码</span>
+                        <input type="password" name="password" class="l-i_radius" placeholder="请输入您的密码"/>
+                    </label>
+                </div>
+                <div class="remember">
+                    <span class="input_remember">记住我</span>
+                    <input type="checkbox" name="remember-me" class="c_remember"/>
+                </div>
+                <div class="error_msg" th:if="${loginError}">
+                    <p class="blog-label-error" th:text="${errorMsg}"></p>
+                </div>
+                <div class="r_btn">
+                    <input class="submitBtn" type="submit" id="submitLogin" value="登录"/>
+                </div>
+            </form>
+        </div>
+        <div class="l-f-bg-style"></div>
+    </div>
+</div>
+<div th:include="fragment/foot:: div"/>
+<script th:src="@{/js/main.js}" type="application/javascript"></script>
+<script th:src="@{/js/register.js}" type="application/javascript"></script>
+</body>
+</html>

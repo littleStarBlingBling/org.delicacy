@@ -1,0 +1,163 @@
+.article-content-container {
+    padding: 0;
+    margin-top: 6em;
+}
+
+.container {
+    padding: 0;
+}
+
+body {
+    background: #f5f5f6;
+}
+
+.row {
+    background: #fff;
+    padding-bottom: 2em;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.card-header {
+    background: #ededed;
+    height: 3em;
+    width: 100%;
+    border: none;
+    padding-top: 1em;
+    padding-left: 2em;
+}
+
+.fa_icon {
+    margin: 0;
+    padding: 0;
+    width: 1em;
+}
+
+.card-block {
+    height: 21em;
+    width: 95%;
+    margin-left: 1em;
+}
+
+.change_avatar {
+    padding-left: 1em;
+    padding-top: 0.6em;
+    margin-left: 2em;
+    margin-top: 2em;
+    width: 29%;
+    height: 2.6em;
+    background: #81a8ab;
+    color: #FFF;
+    border-radius: 0.25em;
+}
+
+.change_avatar:hover {
+    background: none;
+    color: #81a8ab;
+    border: 1px solid #81a8ab;
+    transition: ease-out 0.3s;
+}
+
+.btn_edit {
+    float: right;
+    width: 10%;
+    height: 2.6em;
+    background: #80a8ac;
+    margin-right: 2em;
+    color: #FFF;
+}
+
+.btn_edit:hover {
+    background: none;
+    border: 1px solid #80a8ac;
+    transition: ease-out 0.3s;
+    color: #80a8ac;
+
+}
+
+.row_avatar {
+    padding-top: 4em;
+    padding-left: 5em;
+}
+
+.card {
+    width: 98%;
+    border-radius: 0.5em;
+    border: 1px solid #CCC;
+}
+
+.p_right {
+    padding-right: 2em;
+    padding-top: 4em;
+    margin: 0;
+
+}
+
+/*手机超小屏幕下的单独样式 xs < 768px */
+@media (max-width: 767px) {
+    .btn_edit {
+        width: 6em;
+    }
+
+    .row_avatar {
+        padding-top: 20%;
+        padding-left: 20%;
+    }
+
+    .p_right {
+        margin-right: 1em;
+        margin-left: 1em;
+    }
+
+    .card-block {
+        margin-left: 1em;
+    }
+
+    .article-content-container {
+        padding: 0;
+        margin-left: 1em;
+        margin-right: 1em;
+        margin-top: 3em;
+    }
+
+    .change_avatar {
+        margin-left: 20%;
+    }
+}
+
+/*手机超小屏幕下的单独样式 xs < 768px */
+
+/*平板小屏幕样式 768px <= sm < 992px */
+@media (min-width: 768px) and (max-width: 991px) {
+    .btn_edit {
+        width: 6em;
+    }
+
+    .row_avatar {
+        padding-top: 20%;
+        padding-left: 20%;
+    }
+
+    .p_right {
+        margin-right: 1em;
+        margin-left: 1em;
+    }
+
+    .card-block {
+        margin-left: 1em;
+    }
+
+    .article-content-container {
+        padding: 0;
+        margin-left: 1em;
+        margin-right: 1em;
+        margin-top: 3em;
+    }
+
+    .change_avatar {
+        margin-left: 20%;
+    }
+}
+
+
+

@@ -1,0 +1,54 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.2.RELEASE'
+    }
+
+    ext['thymeleaf.version'] = '3.0.3.RELEASE'
+    ext['thymeleaf-layout-dialect.version'] = '2.2.0'
+    ext['hibernate.version'] = '5.2.8.Final'
+
+    repositories {
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+apply plugin: 'org.springframework.boot'
+
+group 'org.delicacy'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('mysql:mysql-connector-java:6.0.5')
+    compile('org.apache.commons:commons-lang3:3.5')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.2.RELEASE')
+    runtime('com.h2database:h2:1.4.193')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('net.java.dev.jna:jna:4.3.0')
+    compile('es.nitaur.markdown:txtmark:0.16')
+    compileOnly( 'org.projectlombok:lombok:1.18.2')
+    compile group: 'com.google.guava', name: 'guava', version: '25.1-jre'
+    compile group: 'com.belerweb', name: 'pinyin4j', version: '2.5.0'
+}
